@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Receipt body with a torn (zig-zag) bottom edge -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,26 L72,26 L72,82 L66,77.5 L60,82 L54,77.5 L48,82 L42,77.5 L36,82 Z" />
+
+    <!-- Line items -->
+    <path
+        android:fillColor="#00584A"
+        android:pathData="M43,38 L65,38 L65,43 L43,43 Z" />
+    <path
+        android:fillColor="#00584A"
+        android:pathData="M43,49 L65,49 L65,54 L43,54 Z" />
+    <path
+        android:fillColor="#00584A"
+        android:pathData="M43,60 L56,60 L56,65 L43,65 Z" />
+
+    <!-- Coin badge -->
+    <path
+        android:fillColor="#5BDBC0"
+        android:pathData="M66,60 m-11,0 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z" />
+    <path
+        android:fillColor="#00382D"
+        android:pathData="M64.6,53.6 L67.4,53.6 L67.4,55.4 Q71.2,55.9 71.2,59 L68.6,59 Q68.6,57.4 66,57.4 Q63.4,57.4 63.4,58.7 Q63.4,59.8 66.4,60.4 Q71.4,61.3 71.4,64.2 Q71.4,66.8 67.4,67.4 L67.4,69.2 L64.6,69.2 L64.6,67.4 Q60.6,66.9 60.6,63.6 L63.2,63.6 Q63.2,65.3 66,65.3 Q68.8,65.3 68.8,64 Q68.8,62.9 65.7,62.3 Q60.8,61.4 60.8,58.6 Q60.8,56.1 64.6,55.4 Z" />
+</vector>

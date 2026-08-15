@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Indonesian translation. Android's resource qualifier for Indonesian is the legacy
+  ISO code "in", not "id" — a values-id/ folder is silently ignored on many devices.
+-->
+<resources>
+    <string name="app_name">Kasir Pro</string>
+
+    <!-- ============================ Umum ============================ -->
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+    <string name="save">Simpan</string>
+    <string name="delete">Hapus</string>
+    <string name="edit">Ubah</string>
+    <string name="add">Tambah</string>
+    <string name="close">Tutup</string>
+    <string name="back">Kembali</string>
+    <string name="search">Cari</string>
+    <string name="retry">Coba lagi</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="clear">Bersihkan</string>
+    <string name="done">Selesai</string>
+    <string name="apply">Terapkan</string>
+    <string name="reset">Atur ulang</string>
+    <string name="all">Semua</string>
+    <string name="see_all">Lihat semua</string>
+    <string name="more">Lainnya</string>
+    <string name="optional">opsional</string>
+    <string name="none">Tidak ada</string>
+    <string name="today">Hari ini</string>
+    <string name="yesterday">Kemarin</string>
+    <string name="this_week">7 hari</string>
+    <string name="this_month">Bulan ini</string>
+    <string name="this_year">Tahun ini</string>
+    <string name="all_time">Semua</string>
+    <string name="custom_range">Pilih tanggal</string>
+    <string name="total">Total</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discount">Diskon</string>
+    <string name="tax">Pajak</string>
+    <string name="service_charge">Biaya layanan</string>
+    <string name="rounding">Pembulatan</string>
+    <string name="quantity">Jumlah</string>
+    <string name="price">Harga</string>
+    <string name="cost">Modal</string>
+    <string name="stock">Stok</string>
+    <string name="profit">Laba</string>
+    <string name="revenue">Omzet</string>
+    <string name="note">Catatan</string>
+    <string name="amount">Nominal</string>
+    <string name="category">Kategori</string>
+    <string name="no_data">Belum ada data pada periode ini</string>
+    <string name="loading">Memuat…</string>
+    <string name="something_went_wrong">Terjadi kesalahan</string>
+    <string name="vs_previous">dibanding periode sebelumnya</string>
+    <string name="menu">Menu</string>
+
+    <!-- ============================ Navigasi ============================ -->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_pos">Kasir</string>
+    <string name="nav_products">Produk</string>
+    <string name="nav_cashflow">Kas</string>
+    <string name="nav_reports">Laporan</string>
+
+    <!-- ============================ Beranda ============================ -->
+    <string name="dashboard_greeting">Selamat datang</string>
+    <string name="dashboard_today_summary">Performa hari ini</string>
+    <string name="today_revenue">Omzet hari ini</string>
+    <string name="today_orders">Transaksi</string>
+    <string name="today_profit">Laba kotor</string>
+    <string name="today_items">Item terjual</string>
+    <string name="cash_on_hand">Uang di laci</string>
+    <string name="cash_on_hand_hint">Perkiraan kas fisik saat ini</string>
+    <string name="quick_actions">Aksi cepat</string>
+    <string name="action_new_sale">Transaksi baru</string>
+    <string name="action_cash_in">Kas masuk</string>
+    <string name="action_cash_out">Kas keluar</string>
+    <string name="action_stock_in">Stok masuk</string>
+    <string name="action_shift">Shift</string>
+    <string name="action_statistics">Statistik</string>
+    <string name="recent_transactions">Transaksi terakhir</string>
+    <string name="no_transactions_yet">Belum ada penjualan hari ini</string>
+    <string name="no_transactions_yet_hint">Buka tab Kasir untuk mulai transaksi pertama.</string>
+    <string name="sales_last_7_days">Penjualan — 7 hari terakhir</string>
+    <string name="low_stock_alert">Stok menipis</string>
+    <string name="low_stock_items">%1$d produk perlu restock</string>
+    <string name="promos_live_now">%1$d promo sedang berjalan</string>
+    <string name="shift_open_banner">Shift buka sejak %1$s</string>
+    <string name="shift_closed_banner">Belum ada shift</string>
+    <string name="top_seller_today">Terlaris hari ini</string>
+
+    <!-- ============================ Kasir / POS ============================ -->
+    <string name="pos_title">Kasir</string>
+    <string name="search_products">Cari nama, SKU, atau barcode</string>
+    <string name="scan_barcode">Pindai barcode</string>
+    <string name="all_categories">Semua</string>
+    <string name="cart">Keranjang</string>
+    <string name="cart_empty">Keranjang kosong</string>
+    <string name="cart_empty_hint">Ketuk produk untuk mulai transaksi.</string>
+    <string name="cart_items">%1$d item</string>
+    <string name="clear_cart">Kosongkan</string>
+    <string name="clear_cart_confirm">Hapus semua item dari keranjang?</string>
+    <string name="hold_order">Tahan</string>
+    <string name="held_orders">Pesanan ditahan</string>
+    <string name="held_orders_count">%1$d ditahan</string>
+    <string name="hold_label">Label (mis. meja 4)</string>
+    <string name="order_held">Pesanan ditahan</string>
+    <string name="resume_order">Lanjutkan</string>
+    <string name="discard_order">Buang</string>
+    <string name="no_held_orders">Tidak ada pesanan ditahan</string>
+    <string name="charge">Bayar</string>
+    <string name="charge_amount">Bayar %1$s</string>
+    <string name="no_products">Belum ada produk</string>
+    <string name="no_products_hint">Tambahkan produk pertama untuk mulai berjualan.</string>
+    <string name="no_matching_products">Produk tidak ditemukan</string>
+    <string name="out_of_stock">Stok habis</string>
+    <string name="stock_left">sisa %1$d</string>
+    <string name="insufficient_stock">Stok %2$s tinggal %1$d</string>
+    <string name="line_discount">Diskon item</string>
+    <string name="order_discount">Diskon transaksi</string>
+    <string name="item_note">Catatan item</string>
+    <string name="remove_item">Hapus</string>
+    <string name="promo_applied">%1$s diterapkan</string>
+    <string name="promo_badge">PROMO</string>
+
+    <!-- ============================ Pembayaran ============================ -->
+    <string name="payment">Pembayaran</string>
+    <string name="amount_due">Total tagihan</string>
+    <string name="amount_paid">Dibayar</string>
+    <string name="change_due">Kembalian</string>
+    <string name="still_due">Kurang</string>
+    <string name="exact_amount">Uang pas</string>
+    <string name="cash_received">Uang diterima</string>
+    <string name="payment_method">Metode bayar</string>
+    <string name="split_payment">Pembayaran terpisah</string>
+    <string name="add_tender">Tambah pembayaran</string>
+    <string name="reference_optional">Nomor referensi / approval</string>
+    <string name="method_cash">Tunai</string>
+    <string name="method_qris">QRIS</string>
+    <string name="method_debit">Kartu debit</string>
+    <string name="method_credit">Kartu kredit</string>
+    <string name="method_transfer">Transfer</string>
+    <string name="method_ewallet">E-wallet</string>
+    <string name="customer_name">Nama pelanggan</string>
+    <string name="customer_phone">Telepon</string>
+    <string name="order_note">Catatan transaksi</string>
+    <string name="complete_payment">Selesaikan</string>
+    <string name="underpaid">Pembayaran kurang dari total tagihan</string>
+
+    <!-- ============================ Struk ============================ -->
+    <string name="receipt">Struk</string>
+    <string name="sale_complete">Pembayaran diterima</string>
+    <string name="invoice_no">Nota</string>
+    <string name="cashier_label">Kasir</string>
+    <string name="print_receipt">Cetak</string>
+    <string name="share_receipt">Bagikan</string>
+    <string name="new_sale">Transaksi baru</string>
+    <string name="receipt_thank_you">Terima kasih!</string>
+    <string name="items_count">%1$d item</string>
+
+    <!-- ============================ Produk ============================ -->
+    <string name="products_title">Produk</string>
+    <string name="add_product">Tambah produk</string>
+    <string name="edit_product">Ubah produk</string>
+    <string name="product_name">Nama produk</string>
+    <string name="sku">SKU</string>
+    <string name="barcode">Barcode</string>
+    <string name="cost_price">Harga modal</string>
+    <string name="sell_price">Harga jual</string>
+    <string name="initial_stock">Stok awal</string>
+    <string name="min_stock">Batas minimum</string>
+    <string name="min_stock_hint">Ingatkan saya saat stok turun ke angka ini</string>
+    <string name="unit">Satuan</string>
+    <string name="track_stock">Kelola stok</string>
+    <string name="track_stock_hint">Matikan untuk jasa yang tidak punya stok</string>
+    <string name="product_active">Aktif</string>
+    <string name="margin">Margin</string>
+    <string name="product_saved">Produk tersimpan</string>
+    <string name="delete_product_confirm">Arsipkan %1$s? Tetap muncul di laporan lama, tapi hilang dari layar kasir.</string>
+    <string name="archive">Arsipkan</string>
+    <string name="restore">Pulihkan</string>
+    <string name="archived">Diarsipkan</string>
+    <string name="show_archived">Tampilkan arsip</string>
+    <string name="name_required">Nama wajib diisi</string>
+    <string name="price_required">Harga jual harus lebih dari nol</string>
+
+    <!-- ============================ Kategori ============================ -->
+    <string name="categories_title">Kategori</string>
+    <string name="add_category">Tambah kategori</string>
+    <string name="edit_category">Ubah kategori</string>
+    <string name="category_name">Nama kategori</string>
+    <string name="category_color">Warna</string>
+    <string name="uncategorised">Tanpa kategori</string>
+    <string name="delete_category_confirm">Hapus %1$s? Produknya jadi tanpa kategori.</string>
+    <string name="no_categories">Belum ada kategori</string>
+
+    <!-- ============================ Stok ============================ -->
+    <string name="stock_title">Stok</string>
+    <string name="stock_in">Stok masuk</string>
+    <string name="stock_in_hint">Catat barang yang diterima dari supplier</string>
+    <string name="stock_adjust">Stok opname</string>
+    <string name="stock_adjust_hint">Sesuaikan stok dengan hasil hitung fisik</string>
+    <string name="write_off">Barang rusak</string>
+    <string name="write_off_hint">Barang rusak, kedaluwarsa, atau hilang</string>
+    <string name="stock_return">Retur pelanggan</string>
+    <string name="movement_history">Riwayat stok</string>
+    <string name="received_qty">Jumlah diterima</string>
+    <string name="unit_cost">Modal per satuan</string>
+    <string name="purchase_total">Total pembelian</string>
+    <string name="update_cost_price">Perbarui harga modal produk</string>
+    <string name="pay_from_cash">Catat sebagai kas keluar</string>
+    <string name="pay_from_cash_hint">Pembelian ikut tercatat di arus kas</string>
+    <string name="counted_stock">Jumlah hasil hitung</string>
+    <string name="current_stock">Stok saat ini</string>
+    <string name="difference">Selisih</string>
+    <string name="reason">Alasan</string>
+    <string name="stock_updated">Stok diperbarui</string>
+    <string name="low_stock">Stok menipis</string>
+    <string name="healthy_stock">Stok aman</string>
+    <string name="untracked_stock">Tanpa stok</string>
+    <string name="stock_value">Nilai stok (modal)</string>
+    <string name="retail_value">Nilai jual</string>
+    <string name="potential_profit">Potensi laba</string>
+    <string name="no_movements">Belum ada pergerakan stok</string>
+    <string name="movement_purchase">Masuk</string>
+    <string name="movement_sale">Terjual</string>
+    <string name="movement_adjustment">Penyesuaian</string>
+    <string name="movement_return">Retur</string>
+    <string name="movement_void">Batal transaksi</string>
+    <string name="movement_waste">Dihapus</string>
+    <string name="movement_initial">Stok awal</string>
+
+    <!-- ============================ Arus kas ============================ -->
+    <string name="cashflow_title">Arus kas</string>
+    <string name="cash_in">Kas masuk</string>
+    <string name="cash_out">Kas keluar</string>
+    <string name="net_cashflow">Selisih</string>
+    <string name="total_in">Uang masuk</string>
+    <string name="total_out">Uang keluar</string>
+    <string name="add_cash_in">Catat kas masuk</string>
+    <string name="add_cash_out">Catat kas keluar</string>
+    <string name="edit_entry">Ubah catatan</string>
+    <string name="cashflow_empty">Belum ada catatan kas</string>
+    <string name="cashflow_empty_hint">Penjualan tercatat otomatis. Gunakan + untuk mencatat lainnya.</string>
+    <string name="affects_drawer">Pengaruhi laci kas</string>
+    <string name="affects_drawer_hint">Matikan untuk transfer bank yang tidak lewat laci</string>
+    <string name="auto_generated">Otomatis</string>
+    <string name="auto_entry_readonly">Catatan otomatis tidak bisa diubah — batalkan transaksinya.</string>
+    <string name="delete_entry_confirm">Hapus catatan kas ini?</string>
+    <string name="entry_saved">Catatan tersimpan</string>
+    <string name="expense_breakdown">Uang keluar untuk apa</string>
+    <string name="income_breakdown">Uang masuk dari mana</string>
+    <string name="amount_required">Isi nominal lebih dari nol</string>
+    <string name="manual_only">Manual saja</string>
+    <string name="all_entries">Semua catatan</string>
+
+    <!-- ============================ Laporan &amp; statistik ============================ -->
+    <string name="reports_title">Laporan</string>
+    <string name="statistics_title">Statistik</string>
+    <string name="tab_overview">Ringkasan</string>
+    <string name="tab_products">Produk</string>
+    <string name="tab_cashflow">Arus kas</string>
+    <string name="gross_sales">Penjualan kotor</string>
+    <string name="net_sales">Penjualan bersih</string>
+    <string name="gross_profit">Laba kotor</string>
+    <string name="orders_count">Transaksi</string>
+    <string name="items_sold">Item terjual</string>
+    <string name="average_order">Rata-rata transaksi</string>
+    <string name="margin_percent">Margin</string>
+    <string name="best_sellers">Produk terlaris</string>
+    <string name="worst_sellers">Paling lambat laku</string>
+    <string name="most_profitable">Laba tertinggi</string>
+    <string name="never_sold">Tidak terjual periode ini</string>
+    <string name="never_sold_hint">Produk aktif tanpa penjualan — modal yang menganggur di rak.</string>
+    <string name="sales_by_category">Per kategori</string>
+    <string name="sales_by_hour">Jam paling ramai</string>
+    <string name="payment_methods">Metode pembayaran</string>
+    <string name="busiest_hour">Jam tersibuk</string>
+    <string name="units_sold">%1$d terjual</string>
+    <string name="rank_by_qty">Per jumlah</string>
+    <string name="rank_by_revenue">Per omzet</string>
+    <string name="rank_by_profit">Per laba</string>
+    <string name="export_csv">Ekspor CSV</string>
+    <string name="exported">Laporan diekspor</string>
+
+    <!-- ============================ Riwayat transaksi ============================ -->
+    <string name="history_title">Transaksi</string>
+    <string name="transaction_detail">Detail transaksi</string>
+    <string name="search_invoice">Cari nota atau pelanggan</string>
+    <string name="status_completed">Selesai</string>
+    <string name="status_void">Batal</string>
+    <string name="status_held">Ditahan</string>
+    <string name="status_refunded">Diretur</string>
+    <string name="void_sale">Batalkan transaksi</string>
+    <string name="void_reason">Alasan pembatalan</string>
+    <string name="void_confirm">Batalkan %1$s? Stok dikembalikan dan catatan kas dibalik.</string>
+    <string name="sale_voided">Transaksi dibatalkan</string>
+    <string name="no_transactions">Tidak ada transaksi</string>
+
+    <!-- ============================ Shift ============================ -->
+    <string name="shift_title">Shift</string>
+    <string name="open_shift">Buka shift</string>
+    <string name="close_shift">Tutup shift</string>
+    <string name="opening_cash">Modal awal laci</string>
+    <string name="opening_cash_hint">Uang yang Anda masukkan ke laci di awal</string>
+    <string name="expected_cash">Seharusnya di laci</string>
+    <string name="counted_cash">Hasil hitung</string>
+    <string name="variance">Selisih</string>
+    <string name="over_by">Lebih %1$s</string>
+    <string name="short_by">Kurang %1$s</string>
+    <string name="balanced">Pas</string>
+    <string name="shift_history">Shift sebelumnya</string>
+    <string name="cashier_name">Nama kasir</string>
+    <string name="no_open_shift">Belum ada shift dibuka</string>
+    <string name="no_open_shift_hint">Buka shift untuk memantau laci dan mencocokkan kas saat tutup.</string>
+    <string name="shift_duration">Buka %1$s</string>
+    <string name="shift_summary">Ringkasan shift</string>
+    <string name="shift_sales">Penjualan shift ini</string>
+    <string name="shift_closed">Shift ditutup</string>
+    <string name="shift_already_open">Masih ada shift yang terbuka</string>
+
+    <!-- ============================ Promo ============================ -->
+    <string name="promos_title">Promo</string>
+    <string name="add_promo">Promo baru</string>
+    <string name="edit_promo">Ubah promo</string>
+    <string name="promo_name">Nama promo</string>
+    <string name="discount_type">Jenis diskon</string>
+    <string name="discount_percent">Persen</string>
+    <string name="discount_fixed">Nominal tetap</string>
+    <string name="discount_value">Nilai</string>
+    <string name="applies_to">Berlaku untuk</string>
+    <string name="scope_all">Semua produk</string>
+    <string name="scope_category">Satu kategori</string>
+    <string name="scope_product">Satu produk</string>
+    <string name="start_date">Mulai</string>
+    <string name="end_date">Berakhir</string>
+    <string name="active_days">Hari aktif</string>
+    <string name="active_days_hint">Kosongkan untuk setiap hari</string>
+    <string name="happy_hour">Jam berlaku</string>
+    <string name="happy_hour_hint">Jam mulai sama dengan jam selesai berarti sepanjang hari</string>
+    <string name="start_time">Dari</string>
+    <string name="end_time">Sampai</string>
+    <string name="min_qty">Minimal jumlah</string>
+    <string name="max_discount">Diskon maksimal</string>
+    <string name="max_discount_hint">0 = tanpa batas</string>
+    <string name="promo_enabled">Aktif</string>
+    <string name="promo_live">Sedang jalan</string>
+    <string name="promo_scheduled">Terjadwal</string>
+    <string name="promo_expired">Kedaluwarsa</string>
+    <string name="promo_paused">Dijeda</string>
+    <string name="no_promos">Belum ada promo</string>
+    <string name="no_promos_hint">Buat diskon berjangka — otomatis dipakai saat pembayaran.</string>
+    <string name="promo_saved">Promo tersimpan</string>
+    <string name="delete_promo_confirm">Hapus %1$s?</string>
+    <string name="day_mon">Sen</string>
+    <string name="day_tue">Sel</string>
+    <string name="day_wed">Rab</string>
+    <string name="day_thu">Kam</string>
+    <string name="day_fri">Jum</string>
+    <string name="day_sat">Sab</string>
+    <string name="day_sun">Min</string>
+
+    <!-- ============================ Pengaturan ============================ -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="store_profile">Profil toko</string>
+    <string name="store_name">Nama toko</string>
+    <string name="store_address">Alamat</string>
+    <string name="store_phone">Telepon</string>
+    <string name="currency_symbol">Simbol mata uang</string>
+    <string name="tax_settings">Pajak &amp; biaya</string>
+    <string name="enable_tax">Kenakan pajak</string>
+    <string name="tax_percent">Tarif pajak (%)</string>
+    <string name="tax_inclusive">Harga sudah termasuk pajak</string>
+    <string name="enable_service_charge">Biaya layanan</string>
+    <string name="service_charge_percent">Biaya layanan (%)</string>
+    <string name="rounding_nearest">Bulatkan total ke</string>
+    <string name="rounding_off">Nonaktif</string>
+    <string name="receipt_settings">Struk</string>
+    <string name="receipt_header">Teks atas struk</string>
+    <string name="receipt_footer">Teks bawah struk</string>
+    <string name="print_barcode">Cetak barcode nota</string>
+    <string name="cashier_settings">Kasir</string>
+    <string name="default_cashier">Nama kasir bawaan</string>
+    <string name="inventory_settings">Persediaan</string>
+    <string name="low_stock_alerts">Peringatan stok menipis</string>
+    <string name="block_out_of_stock">Larang menjual produk yang stoknya habis</string>
+    <string name="data_section">Data</string>
+    <string name="manage_categories">Kelola kategori</string>
+    <string name="manage_promos">Kelola promo</string>
+    <string name="clear_data">Hapus semua data usaha</string>
+    <string name="clear_data_confirm">Ini menghapus seluruh produk, transaksi, pergerakan stok, dan catatan kas. Profil toko tetap tersimpan. Lanjutkan?</string>
+    <string name="restore_sample">Muat ulang produk contoh</string>
+    <string name="data_cleared">Data dihapus</string>
+    <string name="about">Tentang</string>
+    <string name="version_label">Versi %1$s</string>
+    <string name="settings_saved">Tersimpan</string>
+
+    <!-- ============================ Pemindai ============================ -->
+    <string name="scanner_title">Pindai barcode</string>
+    <string name="scanner_hint">Arahkan kamera ke barcode</string>
+    <string name="camera_permission_required">Izin kamera diperlukan untuk memindai barcode</string>
+    <string name="grant_permission">Beri izin</string>
+    <string name="product_not_found">Tidak ada produk dengan barcode %1$s</string>
+    <string name="use_as_barcode">Pakai barcode ini</string>
+</resources>

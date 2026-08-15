@@ -1,0 +1,89 @@
+# ---------------------------------------------------------------------------
+#  Kasir Pro — files that must never reach the repository
+# ---------------------------------------------------------------------------
+
+# --- Secrets & signing -----------------------------------------------------
+# A leaked keystore lets anyone publish an update that Android accepts as ours.
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+!debug.keystore
+keystore.properties
+signing.properties
+key.properties
+google-services.json
+service-account*.json
+*-service-account.json
+
+# Environment / credential files
+.env
+.env.*
+!.env.example
+secrets.properties
+secrets.xml
+credentials*.json
+*.token
+
+# --- Machine-specific config ----------------------------------------------
+# Holds the absolute SDK path, which contains the local username.
+local.properties
+build.env.bat
+*.local
+
+# --- Build output ----------------------------------------------------------
+# Unanchored so it catches app/build/ and any future module, not just the root.
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+out/
+release/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+output-metadata.json
+
+# --- Gradle & Kotlin caches ------------------------------------------------
+.gradle/
+.kotlin/
+gradle-app.setting
+.gradletasknamecache
+
+# --- IDE -------------------------------------------------------------------
+*.iml
+.idea/
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+
+# --- Local databases & user data ------------------------------------------
+# Exported shop data would contain real sales and customer records.
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.csv.bak
+
+# --- Logs, crashes, profiling ---------------------------------------------
+*.log
+*.hprof
+*.trace
+hs_err_pid*
+lint-results*.html
+lint-results*.xml
+
+# --- OS noise --------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
