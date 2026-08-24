@@ -42,6 +42,8 @@ import com.rzk.kasirpro.core.PrintUtils
 import com.rzk.kasirpro.core.ReceiptFormatter
 import com.rzk.kasirpro.di.AppViewModelProvider
 import com.rzk.kasirpro.ui.components.DetailRow
+import com.rzk.kasirpro.ui.components.OrganicBlob
+import com.rzk.kasirpro.ui.components.grainOverlay
 import com.rzk.kasirpro.ui.theme.ReceiptTextStyle
 import com.rzk.kasirpro.ui.theme.kasirColors
 
@@ -61,18 +63,24 @@ fun ReceiptScreen(
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            Modifier
-                .size(72.dp)
-                .background(MaterialTheme.kasirColors.cashInContainer, RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                Icons.Filled.CheckCircle,
-                contentDescription = null,
-                tint = MaterialTheme.kasirColors.onCashInContainer,
-                modifier = Modifier.size(38.dp)
+        Box(contentAlignment = Alignment.Center) {
+            OrganicBlob(
+                color = MaterialTheme.kasirColors.cashIn,
+                modifier = Modifier.size(120.dp)
             )
+            Box(
+                Modifier
+                    .size(72.dp)
+                    .background(MaterialTheme.kasirColors.cashInContainer, RoundedCornerShape(16.dp)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    tint = MaterialTheme.kasirColors.onCashInContainer,
+                    modifier = Modifier.size(38.dp)
+                )
+            }
         }
         Spacer(Modifier.height(12.dp))
         Text(
@@ -119,6 +127,7 @@ fun ReceiptScreen(
                         RoundedCornerShape(16.dp)
                     )
                     .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
+                    .grainOverlay()
                     .padding(18.dp)
             ) {
                 Text(

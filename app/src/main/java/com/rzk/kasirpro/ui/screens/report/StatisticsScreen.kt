@@ -44,6 +44,7 @@ import com.rzk.kasirpro.ui.components.KasirCard
 import com.rzk.kasirpro.ui.components.PeriodChipRow
 import com.rzk.kasirpro.ui.components.RankBarRow
 import com.rzk.kasirpro.ui.components.SectionHeader
+import com.rzk.kasirpro.ui.components.StaggeredEntrance
 import com.rzk.kasirpro.ui.components.StatCard
 import com.rzk.kasirpro.ui.theme.kasirColors
 
@@ -82,109 +83,123 @@ fun StatisticsScreen(
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             item {
-                PeriodChipRow(
-                    selected = state.period.preset,
-                    onSelect = viewModel::setPeriod,
-                    contentPadding = PaddingValues(0.dp)
-                )
+                StaggeredEntrance(0) {
+                    PeriodChipRow(
+                        selected = state.period.preset,
+                        onSelect = viewModel::setPeriod,
+                        contentPadding = PaddingValues(0.dp)
+                    )
+                }
             }
 
             item {
-                SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-                    RankMetric.entries.forEachIndexed { index, option ->
-                        SegmentedButton(
-                            selected = state.metric == option,
-                            onClick = { viewModel.setMetric(option) },
-                            shape = SegmentedButtonDefaults.itemShape(index, RankMetric.entries.size)
-                        ) {
-                            Text(
-                                when (option) {
-                                    RankMetric.QUANTITY -> stringResource(R.string.rank_by_qty)
-                                    RankMetric.REVENUE -> stringResource(R.string.rank_by_revenue)
-                                    RankMetric.PROFIT -> stringResource(R.string.rank_by_profit)
-                                },
-                                maxLines = 1
-                            )
+                StaggeredEntrance(1) {
+                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                        RankMetric.entries.forEachIndexed { index, option ->
+                            SegmentedButton(
+                                selected = state.metric == option,
+                                onClick = { viewModel.setMetric(option) },
+                                shape = SegmentedButtonDefaults.itemShape(index, RankMetric.entries.size)
+                            ) {
+                                Text(
+                                    when (option) {
+                                        RankMetric.QUANTITY -> stringResource(R.string.rank_by_qty)
+                                        RankMetric.REVENUE -> stringResource(R.string.rank_by_revenue)
+                                        RankMetric.PROFIT -> stringResource(R.string.rank_by_profit)
+                                    },
+                                    maxLines = 1
+                                )
+                            }
                         }
                     }
                 }
             }
 
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    StatCard(
-                        label = stringResource(R.string.busiest_hour),
-                        value = state.busiestHour?.let { "${it.hourKey}:00" } ?: "—",
-                        icon = Icons.Filled.Schedule,
-                        accent = MaterialTheme.kasirColors.warning,
-                        supporting = state.busiestHour?.let {
-                            Formatters.compactMoney(it.total, symbol)
-                        },
-                        modifier = Modifier.weight(1f)
-                    )
-                    StatCard(
-                        label = stringResource(R.string.never_sold),
-                        value = state.neverSold.size.toString(),
-                        icon = Icons.AutoMirrored.Filled.TrendingDown,
-                        accent = MaterialTheme.kasirColors.cashOut,
-                        higherIsBetter = false,
-                        modifier = Modifier.weight(1f)
+                StaggeredEntrance(2) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        StatCard(
+                            label = stringResource(R.string.busiest_hour),
+                            value = state.busiestHour?.let { "${it.hourKey}:00" } ?: "—",
+                            icon = Icons.Filled.Schedule,
+                            accent = MaterialTheme.kasirColors.warning,
+                            supporting = state.busiestHour?.let {
+                                Formatters.compactMoney(it.total, symbol)
+                            },
+                            modifier = Modifier.weight(1f)
+                        )
+                        StatCard(
+                            label = stringResource(R.string.never_sold),
+                            value = state.neverSold.size.toString(),
+                            icon = Icons.AutoMirrored.Filled.TrendingDown,
+                            accent = MaterialTheme.kasirColors.cashOut,
+                            higherIsBetter = false,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+            }
+
+            item {
+                StaggeredEntrance(3) {
+                    KasirCard {
+                        SectionHeader(title = stringResource(R.string.sales_by_hour))
+                        Spacer(Modifier.height(10.dp))
+                        BarChart(
+                            data = (7..22).map { hour ->
+                                val key = "%02d".format(hour)
+                                val row = state.hourly.firstOrNull { it.hourKey == key }
+                                BarDatum(
+                                    label = if (hour % 3 == 1) key else "",
+                                    value = row?.total ?: 0L,
+                                    display = Formatters.compactMoney(row?.total ?: 0L, symbol)
+                                )
+                            },
+                            emptyLabel = stringResource(R.string.no_data),
+                            barColor = MaterialTheme.kasirColors.warning
+                        )
+                    }
+                }
+            }
+
+            item {
+                StaggeredEntrance(4) {
+                    RankingCard(
+                        title = stringResource(R.string.best_sellers),
+                        icon = Icons.AutoMirrored.Filled.TrendingUp,
+                        stats = state.best,
+                        metric = state.metric,
+                        currencySymbol = symbol,
+                        barColor = MaterialTheme.kasirColors.cashIn
                     )
                 }
             }
 
             item {
-                KasirCard {
-                    SectionHeader(title = stringResource(R.string.sales_by_hour))
-                    Spacer(Modifier.height(10.dp))
-                    BarChart(
-                        data = (7..22).map { hour ->
-                            val key = "%02d".format(hour)
-                            val row = state.hourly.firstOrNull { it.hourKey == key }
-                            BarDatum(
-                                label = if (hour % 3 == 1) key else "",
-                                value = row?.total ?: 0L,
-                                display = Formatters.compactMoney(row?.total ?: 0L, symbol)
-                            )
-                        },
-                        emptyLabel = stringResource(R.string.no_data),
+                StaggeredEntrance(5) {
+                    RankingCard(
+                        title = stringResource(R.string.worst_sellers),
+                        icon = Icons.AutoMirrored.Filled.TrendingDown,
+                        stats = state.worst,
+                        metric = state.metric,
+                        currencySymbol = symbol,
                         barColor = MaterialTheme.kasirColors.warning
                     )
                 }
             }
 
-            item {
-                RankingCard(
-                    title = stringResource(R.string.best_sellers),
-                    icon = Icons.AutoMirrored.Filled.TrendingUp,
-                    stats = state.best,
-                    metric = state.metric,
-                    currencySymbol = symbol,
-                    barColor = MaterialTheme.kasirColors.cashIn
-                )
-            }
-
-            item {
-                RankingCard(
-                    title = stringResource(R.string.worst_sellers),
-                    icon = Icons.AutoMirrored.Filled.TrendingDown,
-                    stats = state.worst,
-                    metric = state.metric,
-                    currencySymbol = symbol,
-                    barColor = MaterialTheme.kasirColors.warning
-                )
-            }
-
             if (state.neverSold.isNotEmpty()) {
                 item {
-                    KasirCard {
-                        SectionHeader(
-                            title = stringResource(R.string.never_sold),
-                            subtitle = stringResource(R.string.never_sold_hint)
-                        )
-                        Spacer(Modifier.height(8.dp))
-                        state.neverSold.take(10).forEach { stat ->
-                            DetailRow(stat.productName, "0")
+                    StaggeredEntrance(6) {
+                        KasirCard {
+                            SectionHeader(
+                                title = stringResource(R.string.never_sold),
+                                subtitle = stringResource(R.string.never_sold_hint)
+                            )
+                            Spacer(Modifier.height(8.dp))
+                            state.neverSold.take(10).forEach { stat ->
+                                DetailRow(stat.productName, "0")
+                            }
                         }
                     }
                 }
@@ -192,19 +207,21 @@ fun StatisticsScreen(
 
             if (state.categories.isNotEmpty()) {
                 item {
-                    KasirCard {
-                        SectionHeader(title = stringResource(R.string.sales_by_category))
-                        Spacer(Modifier.height(6.dp))
-                        val peak = state.categories.maxOf { it.revenue }.coerceAtLeast(1)
-                        state.categories.forEachIndexed { index, row ->
-                            RankBarRow(
-                                rank = index + 1,
-                                label = row.categoryName
-                                    ?: stringResource(R.string.uncategorised),
-                                value = Formatters.compactMoney(row.revenue, symbol),
-                                supporting = stringResource(R.string.units_sold, row.qtySold),
-                                fraction = row.revenue.toFloat() / peak.toFloat()
-                            )
+                    StaggeredEntrance(7) {
+                        KasirCard {
+                            SectionHeader(title = stringResource(R.string.sales_by_category))
+                            Spacer(Modifier.height(6.dp))
+                            val peak = state.categories.maxOf { it.revenue }.coerceAtLeast(1)
+                            state.categories.forEachIndexed { index, row ->
+                                RankBarRow(
+                                    rank = index + 1,
+                                    label = row.categoryName
+                                        ?: stringResource(R.string.uncategorised),
+                                    value = Formatters.compactMoney(row.revenue, symbol),
+                                    supporting = stringResource(R.string.units_sold, row.qtySold),
+                                    fraction = row.revenue.toFloat() / peak.toFloat()
+                                )
+                            }
                         }
                     }
                 }

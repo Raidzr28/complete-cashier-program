@@ -224,7 +224,14 @@ private fun KeypadKey(
         if (key == "⌫") {
             Icon(Icons.AutoMirrored.Filled.Backspace, contentDescription = "Backspace")
         } else {
-            Text(key, style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.SemiBold))
+            Text(
+                key,
+                style = TextStyle(
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFeatureSettings = "tnum"
+                )
+            )
         }
     }
 }

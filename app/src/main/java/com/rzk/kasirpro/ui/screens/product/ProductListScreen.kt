@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -54,6 +54,7 @@ import com.rzk.kasirpro.ui.components.ChipFilterRow
 import com.rzk.kasirpro.ui.components.EmptyState
 import com.rzk.kasirpro.ui.components.KasirCard
 import com.rzk.kasirpro.ui.components.SearchField
+import com.rzk.kasirpro.ui.components.StaggeredEntrance
 import com.rzk.kasirpro.ui.components.StatCard
 import com.rzk.kasirpro.ui.components.StatusPill
 import com.rzk.kasirpro.ui.theme.kasirColors
@@ -204,13 +205,15 @@ fun ProductListScreen(
                         )
                     }
                 } else {
-                    items(state.products, key = { it.product.id }) { item ->
-                        ProductRow(
-                            item = item,
-                            currencySymbol = symbol,
-                            onClick = { onEditProduct(item.product.id) },
-                            onStockAction = { stockSheetProduct = item }
-                        )
+                    itemsIndexed(state.products, key = { _, item -> item.product.id }) { index, item ->
+                        StaggeredEntrance(index) {
+                            ProductRow(
+                                item = item,
+                                currencySymbol = symbol,
+                                onClick = { onEditProduct(item.product.id) },
+                                onStockAction = { stockSheetProduct = item }
+                            )
+                        }
                     }
                 }
             }

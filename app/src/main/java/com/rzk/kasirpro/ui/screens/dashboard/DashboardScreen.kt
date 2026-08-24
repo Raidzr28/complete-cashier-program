@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -58,6 +59,7 @@ import com.rzk.kasirpro.ui.components.BarChart
 import com.rzk.kasirpro.ui.components.HeroBalanceCard
 import com.rzk.kasirpro.ui.components.KasirCard
 import com.rzk.kasirpro.ui.components.SectionHeader
+import com.rzk.kasirpro.ui.components.StaggeredEntrance
 import com.rzk.kasirpro.ui.components.StatCard
 import com.rzk.kasirpro.ui.components.StatusPill
 import com.rzk.kasirpro.ui.navigation.Routes
@@ -76,135 +78,161 @@ fun DashboardScreen(
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 28.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        item { DashboardHeader(state, onOpenSettings = { onNavigate(Routes.SETTINGS) }) }
+        item {
+            StaggeredEntrance(0) { DashboardHeader(state, onOpenSettings = { onNavigate(Routes.SETTINGS) }) }
+        }
 
         item {
-            HeroBalanceCard(
-                label = stringResource(R.string.cash_on_hand),
-                value = Formatters.money(state.cashOnHand, symbol),
-                caption = stringResource(R.string.cash_on_hand_hint),
-                leading = Icons.Filled.AccountBalanceWallet,
-                trailing = {
-                    val shift = state.openShift
-                    StatusPill(
-                        text = if (shift != null) {
-                            stringResource(
-                                R.string.shift_open_banner,
-                                Formatters.time(shift.openedAt)
-                            )
-                        } else stringResource(R.string.shift_closed_banner),
-                        containerColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.12f),
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        icon = Icons.Filled.Schedule
+            StaggeredEntrance(1) {
+                HeroBalanceCard(
+                    label = stringResource(R.string.cash_on_hand),
+                    value = Formatters.money(state.cashOnHand, symbol),
+                    caption = stringResource(R.string.cash_on_hand_hint),
+                    leading = Icons.Filled.AccountBalanceWallet,
+                    trailing = {
+                        val shift = state.openShift
+                        StatusPill(
+                            text = if (shift != null) {
+                                stringResource(
+                                    R.string.shift_open_banner,
+                                    Formatters.time(shift.openedAt)
+                                )
+                            } else stringResource(R.string.shift_closed_banner),
+                            containerColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.12f),
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                            icon = Icons.Filled.Schedule
+                        )
+                    }
+                )
+            }
+        }
+
+        item {
+            StaggeredEntrance(2) {
+                SectionHeader(
+                    title = stringResource(R.string.dashboard_today_summary),
+                    subtitle = stringResource(R.string.vs_previous)
+                )
+            }
+        }
+
+        item {
+            StaggeredEntrance(3) {
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    StatCard(
+                        label = stringResource(R.string.today_revenue),
+                        value = Formatters.compactMoney(state.today.net, symbol),
+                        icon = Icons.Filled.ShoppingBag,
+                        accent = MaterialTheme.colorScheme.primary,
+                        deltaPercent = state.revenueDelta,
+                        modifier = Modifier.weight(1f)
+                    )
+                    StatCard(
+                        label = stringResource(R.string.today_orders),
+                        value = state.today.orders.toString(),
+                        icon = Icons.AutoMirrored.Outlined.ReceiptLong,
+                        accent = MaterialTheme.colorScheme.tertiary,
+                        deltaPercent = state.orderDelta,
+                        modifier = Modifier.weight(1f)
                     )
                 }
-            )
-        }
-
-        item {
-            SectionHeader(
-                title = stringResource(R.string.dashboard_today_summary),
-                subtitle = stringResource(R.string.vs_previous)
-            )
-        }
-
-        item {
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                StatCard(
-                    label = stringResource(R.string.today_revenue),
-                    value = Formatters.compactMoney(state.today.net, symbol),
-                    icon = Icons.Filled.ShoppingBag,
-                    accent = MaterialTheme.colorScheme.primary,
-                    deltaPercent = state.revenueDelta,
-                    modifier = Modifier.weight(1f)
-                )
-                StatCard(
-                    label = stringResource(R.string.today_orders),
-                    value = state.today.orders.toString(),
-                    icon = Icons.AutoMirrored.Outlined.ReceiptLong,
-                    accent = MaterialTheme.colorScheme.tertiary,
-                    deltaPercent = state.orderDelta,
-                    modifier = Modifier.weight(1f)
-                )
             }
         }
 
         item {
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                StatCard(
-                    label = stringResource(R.string.today_profit),
-                    value = Formatters.compactMoney(state.today.profit, symbol),
-                    icon = Icons.Filled.QueryStats,
-                    accent = MaterialTheme.kasirColors.cashIn,
-                    deltaPercent = state.profitDelta,
-                    modifier = Modifier.weight(1f)
-                )
-                StatCard(
-                    label = stringResource(R.string.today_items),
-                    value = state.today.itemsSold.toString(),
-                    icon = Icons.Filled.Inventory,
-                    accent = MaterialTheme.kasirColors.warning,
-                    supporting = state.topSellerToday?.productName,
-                    modifier = Modifier.weight(1f)
-                )
+            StaggeredEntrance(4) {
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    StatCard(
+                        label = stringResource(R.string.today_profit),
+                        value = Formatters.compactMoney(state.today.profit, symbol),
+                        icon = Icons.Filled.QueryStats,
+                        accent = MaterialTheme.kasirColors.cashIn,
+                        deltaPercent = state.profitDelta,
+                        modifier = Modifier.weight(1f)
+                    )
+                    StatCard(
+                        label = stringResource(R.string.today_items),
+                        value = state.today.itemsSold.toString(),
+                        icon = Icons.Filled.Inventory,
+                        accent = MaterialTheme.kasirColors.warning,
+                        supporting = state.topSellerToday?.productName,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
 
-        item { SectionHeader(title = stringResource(R.string.quick_actions)) }
+        item { StaggeredEntrance(5) { SectionHeader(title = stringResource(R.string.quick_actions)) } }
 
-        item { QuickActionRow(onNavigate) }
+        item { StaggeredEntrance(6) { QuickActionRow(onNavigate) } }
 
         if (state.lowStock.isNotEmpty()) {
-            item { LowStockCard(state.lowStock.size, onClick = { onNavigate(Routes.PRODUCTS) }) }
+            item {
+                StaggeredEntrance(7) {
+                    LowStockCard(state.lowStock.size, onClick = { onNavigate(Routes.PRODUCTS) })
+                }
+            }
         }
 
         if (state.livePromoCount > 0) {
-            item { PromoBanner(state.livePromoCount, onClick = { onNavigate(Routes.PROMOS) }) }
-        }
-
-        item {
-            KasirCard {
-                SectionHeader(title = stringResource(R.string.sales_last_7_days))
-                Spacer(Modifier.height(12.dp))
-                BarChart(
-                    data = viewModel.weekChartKeys().map { key ->
-                        val row = state.weekTotals.firstOrNull { it.dayKey == key }
-                        BarDatum(
-                            label = Formatters.dayKeyToDayName(key),
-                            value = row?.total ?: 0L,
-                            display = Formatters.compactMoney(row?.total ?: 0L, symbol)
-                        )
-                    },
-                    emptyLabel = stringResource(R.string.no_data)
-                )
+            item {
+                StaggeredEntrance(8) {
+                    PromoBanner(state.livePromoCount, onClick = { onNavigate(Routes.PROMOS) })
+                }
             }
         }
 
         item {
-            SectionHeader(
-                title = stringResource(R.string.recent_transactions),
-                actionLabel = stringResource(R.string.see_all),
-                onAction = { onNavigate(Routes.HISTORY) }
-            )
+            StaggeredEntrance(9) {
+                KasirCard {
+                    SectionHeader(title = stringResource(R.string.sales_last_7_days))
+                    Spacer(Modifier.height(12.dp))
+                    BarChart(
+                        data = viewModel.weekChartKeys().map { key ->
+                            val row = state.weekTotals.firstOrNull { it.dayKey == key }
+                            BarDatum(
+                                label = Formatters.dayKeyToDayName(key),
+                                value = row?.total ?: 0L,
+                                display = Formatters.compactMoney(row?.total ?: 0L, symbol)
+                            )
+                        },
+                        emptyLabel = stringResource(R.string.no_data)
+                    )
+                }
+            }
+        }
+
+        item {
+            StaggeredEntrance(10) {
+                SectionHeader(
+                    title = stringResource(R.string.recent_transactions),
+                    actionLabel = stringResource(R.string.see_all),
+                    onAction = { onNavigate(Routes.HISTORY) }
+                )
+            }
         }
 
         if (state.recentSales.isEmpty()) {
             item {
-                KasirCard {
-                    Text(
-                        stringResource(R.string.no_transactions_yet),
-                        style = MaterialTheme.typography.titleSmall
-                    )
-                    Text(
-                        stringResource(R.string.no_transactions_yet_hint),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                StaggeredEntrance(11) {
+                    KasirCard {
+                        Text(
+                            stringResource(R.string.no_transactions_yet),
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                        Text(
+                            stringResource(R.string.no_transactions_yet_hint),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         } else {
-            items(state.recentSales, key = { it.sale.id }) { sale ->
-                RecentSaleRow(sale, symbol) { onNavigate(Routes.saleDetail(sale.sale.id)) }
+            itemsIndexed(state.recentSales, key = { _, sale -> sale.sale.id }) { index, sale ->
+                StaggeredEntrance(11 + index) {
+                    RecentSaleRow(sale, symbol) { onNavigate(Routes.saleDetail(sale.sale.id)) }
+                }
             }
         }
     }

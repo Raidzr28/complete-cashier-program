@@ -1,5 +1,12 @@
 package com.rzk.kasirpro.ui.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -76,13 +84,22 @@ fun StatCard(
             )
         }
         Spacer(Modifier.size(8.dp))
-        Text(
-            value,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+        AnimatedContent(
+            targetState = value,
+            label = "statValue",
+            transitionSpec = {
+                (fadeIn(tween(220)) + slideInVertically(tween(220)) { it / 3 })
+                    .togetherWith(fadeOut(tween(120)) + slideOutVertically(tween(120)) { -it / 3 })
+            }
+        ) { animatedValue ->
+            Text(
+                animatedValue,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
         if (deltaPercent != null || supporting != null) {
             Spacer(Modifier.size(4.dp))
             Row(
@@ -150,9 +167,15 @@ fun HeroBalanceCard(
         modifier = modifier
             .fillMaxWidth()
             .background(containerColor, RoundedCornerShape(18.dp))
-            .padding(20.dp)
+            .grainOverlay(alpha = 0.04f)
     ) {
-        Column {
+        OrganicBlob(
+            color = contentColor,
+            modifier = Modifier
+                .matchParentSize()
+                .clip(RoundedCornerShape(18.dp))
+        )
+        Column(Modifier.padding(20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (leading != null) {
                     Icon(
@@ -171,14 +194,23 @@ fun HeroBalanceCard(
                 if (trailing != null) trailing()
             }
             Spacer(Modifier.size(8.dp))
-            Text(
-                value,
-                style = MaterialTheme.typography.displaySmall,
-                fontWeight = FontWeight.Bold,
-                color = contentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            AnimatedContent(
+                targetState = value,
+                label = "heroValue",
+                transitionSpec = {
+                    (fadeIn(tween(240)) + slideInVertically(tween(240)) { it / 3 })
+                        .togetherWith(fadeOut(tween(140)) + slideOutVertically(tween(140)) { -it / 3 })
+                }
+            ) { animatedValue ->
+                Text(
+                    animatedValue,
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.Bold,
+                    color = contentColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
             if (caption != null) {
                 Spacer(Modifier.size(4.dp))
                 Text(

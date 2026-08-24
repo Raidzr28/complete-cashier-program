@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -44,6 +44,7 @@ import com.rzk.kasirpro.domain.PromoEngine
 import com.rzk.kasirpro.ui.components.ConfirmDialog
 import com.rzk.kasirpro.ui.components.EmptyState
 import com.rzk.kasirpro.ui.components.KasirCard
+import com.rzk.kasirpro.ui.components.StaggeredEntrance
 import com.rzk.kasirpro.ui.components.StatusPill
 import com.rzk.kasirpro.ui.theme.kasirColors
 
@@ -95,14 +96,16 @@ fun PromoListScreen(
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(state.promos, key = { it.id }) { promo ->
-                    PromoCard(
-                        promo = promo,
-                        currencySymbol = state.currencySymbol,
-                        onClick = { onEditPromo(promo.id) },
-                        onToggle = { viewModel.setActive(promo.id, it) },
-                        onDelete = { pendingDelete = promo }
-                    )
+                itemsIndexed(state.promos, key = { _, promo -> promo.id }) { index, promo ->
+                    StaggeredEntrance(index) {
+                        PromoCard(
+                            promo = promo,
+                            currencySymbol = state.currencySymbol,
+                            onClick = { onEditPromo(promo.id) },
+                            onToggle = { viewModel.setActive(promo.id, it) },
+                            onDelete = { pendingDelete = promo }
+                        )
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.rzk.kasirpro.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,9 +23,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -86,9 +89,14 @@ fun KasirCard(
         BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     } else null
     if (onClick != null) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val scale = rememberPressScale(interactionSource)
         Card(
-            onClick = onClick, modifier = modifier, shape = shape, colors = colors,
-            elevation = elevation, border = border
+            onClick = onClick,
+            modifier = modifier.graphicsLayer { scaleX = scale; scaleY = scale },
+            shape = shape, colors = colors,
+            elevation = elevation, border = border,
+            interactionSource = interactionSource
         ) {
             Column(Modifier.padding(contentPadding), content = content)
         }

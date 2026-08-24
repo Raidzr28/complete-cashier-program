@@ -1,11 +1,15 @@
 package com.rzk.kasirpro.ui.screens.pos
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QrCodeScanner
@@ -46,6 +50,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -61,7 +66,9 @@ import com.rzk.kasirpro.domain.PromoEngine
 import com.rzk.kasirpro.ui.components.ChipFilterRow
 import com.rzk.kasirpro.ui.components.EmptyState
 import com.rzk.kasirpro.ui.components.SearchField
+import com.rzk.kasirpro.ui.components.StaggeredEntrance
 import com.rzk.kasirpro.ui.components.StatusPill
+import com.rzk.kasirpro.ui.components.rememberPressScale
 import com.rzk.kasirpro.ui.theme.kasirColors
 
 @Composable
@@ -208,21 +215,26 @@ fun PosScreen(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(state.products, key = { it.product.id }) { item ->
+                    itemsIndexed(
+                        state.products,
+                        key = { _, item -> item.product.id }
+                    ) { index, item ->
                         val promoLabel = remember(item.product.id, state.livePromos) {
                             state.livePromos.firstOrNull {
                                 PromoEngine.isLiveNow(it, System.currentTimeMillis()) &&
                                     PromoEngine.appliesTo(it, item.product)
                             }?.name
                         }
-                        ProductTile(
-                            item = item,
-                            currencySymbol = symbol,
-                            promoLabel = promoLabel,
-                            inCartQty = state.lines.firstOrNull { it.product.id == item.product.id }?.qty ?: 0,
-                            blockOutOfStock = state.settings.blockSaleWhenOutOfStock,
-                            onClick = { viewModel.addProduct(item.product) }
-                        )
+                        StaggeredEntrance(index = index) {
+                            ProductTile(
+                                item = item,
+                                currencySymbol = symbol,
+                                promoLabel = promoLabel,
+                                inCartQty = state.lines.firstOrNull { it.product.id == item.product.id }?.qty ?: 0,
+                                blockOutOfStock = state.settings.blockSaleWhenOutOfStock,
+                                onClick = { viewModel.addProduct(item.product) }
+                            )
+                        }
                     }
                 }
             }
@@ -230,7 +242,9 @@ fun PosScreen(
 
         AnimatedVisibility(
             visible = !state.isCartEmpty,
-            enter = slideInVertically { it },
+            enter = slideInVertically(
+                spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow)
+            ) { it },
             exit = slideOutVertically { it },
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
@@ -319,10 +333,13 @@ private fun ProductTile(
     val soldOut = blockOutOfStock && item.stockStatus == StockStatus.OUT_OF_STOCK
     val accent = item.categoryColor?.let { Color(it) } ?: MaterialTheme.colorScheme.primary
     val inCart = inCartQty > 0
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = rememberPressScale(interactionSource)
 
     Box(
         Modifier
             .fillMaxWidth()
+            .graphicsLayer { scaleX = scale; scaleY = scale }
             .background(
                 if (inCart) MaterialTheme.colorScheme.primaryContainer
                 else MaterialTheme.colorScheme.surfaceContainerLowest,
@@ -334,7 +351,12 @@ private fun ProductTile(
                 else MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(12.dp)
             )
-            .clickable(enabled = !soldOut, onClick = onClick)
+            .clickable(
+                enabled = !soldOut,
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onClick = onClick
+            )
             .padding(14.dp)
     ) {
         Column {
