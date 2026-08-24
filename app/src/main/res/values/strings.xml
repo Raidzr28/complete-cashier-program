@@ -179,6 +179,10 @@
     <string name="show_archived">Show archived</string>
     <string name="name_required">Name is required</string>
     <string name="price_required">Selling price must be greater than zero</string>
+    <string name="barcode_in_use_title">Barcode already in use</string>
+    <string name="barcode_in_use_message">%1$s already uses this barcode — %2$d %3$s in stock.</string>
+    <string name="add_stock_to_existing">Add stock to it</string>
+    <string name="use_for_new_product">Use for this product anyway</string>
 
     <!-- ============================ Categories ============================ -->
     <string name="categories_title">Categories</string>
@@ -192,6 +196,7 @@
 
     <!-- ============================ Stock ============================ -->
     <string name="stock_title">Stock</string>
+    <string name="add_stock">Add stock</string>
     <string name="stock_in">Stock in</string>
     <string name="stock_in_hint">Record goods received from a supplier</string>
     <string name="stock_adjust">Stock take</string>

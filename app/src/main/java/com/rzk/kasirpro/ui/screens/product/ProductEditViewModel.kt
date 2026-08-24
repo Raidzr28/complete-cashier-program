@@ -44,6 +44,9 @@ data class ProductForm(
 
 sealed interface ProductEditEvent {
     data object Saved : ProductEditEvent
+    data object StockUpdated : ProductEditEvent
+    /** Scanned a barcode that already belongs to another active product. */
+    data class ExistingProduct(val product: ProductEntity) : ProductEditEvent
     data class Error(val message: String) : ProductEditEvent
 }
 
@@ -53,6 +56,7 @@ class ProductEditViewModel(
 ) : ViewModel() {
 
     private val catalog = container.catalogRepository
+    private val stock = container.stockRepository
     private val productId: Long = savedStateHandle.get<Long>(Routes.ARG_PRODUCT_ID) ?: 0L
 
     private val _form = MutableStateFlow(ProductForm())
@@ -100,7 +104,21 @@ class ProductEditViewModel(
         _form.value = transform(_form.value)
     }
 
-    fun onBarcodeScanned(code: String) = update { it.copy(barcode = code) }
+    /**
+     * A scan means "this is the item in my hand" — if that barcode already belongs to
+     * another active product, the cashier almost certainly meant to restock it, not spawn
+     * a duplicate catalogue entry with a fragmented stock count.
+     */
+    fun onBarcodeScanned(code: String) {
+        update { it.copy(barcode = code) }
+        if (_form.value.isNew) {
+            viewModelScope.launch {
+                catalog.findByBarcode(code)?.let { existing ->
+                    events.send(ProductEditEvent.ExistingProduct(existing))
+                }
+            }
+        }
+    }
 
     fun save() {
         val form = _form.value
@@ -138,6 +156,43 @@ class ProductEditViewModel(
         viewModelScope.launch {
             catalog.archiveProduct(id)
             events.send(ProductEditEvent.Saved)
+        }
+    }
+
+    /** Restock this product. Goes through [StockRepository] so the movement ledger stays whole. */
+    fun stockIn(qty: Int, unitCost: Long, note: String, updateCostPrice: Boolean, payFromCash: Boolean) {
+        val id = _form.value.id
+        if (id == 0L) return
+        viewModelScope.launch {
+            stock.stockIn(id, qty, unitCost, note, updateCostPrice, payFromCash)
+                .onSuccess { refreshStock(id); events.send(ProductEditEvent.StockUpdated) }
+                .onFailure { events.send(ProductEditEvent.Error(it.message.orEmpty())) }
+        }
+    }
+
+    fun adjustStock(countedStock: Int, reason: String) {
+        val id = _form.value.id
+        if (id == 0L) return
+        viewModelScope.launch {
+            stock.adjustTo(id, countedStock, reason)
+                .onSuccess { refreshStock(id); events.send(ProductEditEvent.StockUpdated) }
+                .onFailure { events.send(ProductEditEvent.Error(it.message.orEmpty())) }
+        }
+    }
+
+    fun writeOffStock(qty: Int, reason: String) {
+        val id = _form.value.id
+        if (id == 0L) return
+        viewModelScope.launch {
+            stock.writeOff(id, qty, reason)
+                .onSuccess { refreshStock(id); events.send(ProductEditEvent.StockUpdated) }
+                .onFailure { events.send(ProductEditEvent.Error(it.message.orEmpty())) }
+        }
+    }
+
+    private suspend fun refreshStock(id: Long) {
+        catalog.getProduct(id)?.let { product ->
+            _form.value = _form.value.copy(stock = product.stock, costPrice = product.costPrice)
         }
     }
 }

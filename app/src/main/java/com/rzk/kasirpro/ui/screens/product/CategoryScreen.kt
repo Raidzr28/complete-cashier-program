@@ -119,7 +119,7 @@ fun CategoryScreen(
                             Box(
                                 Modifier
                                     .size(34.dp)
-                                    .background(Color(category.colorArgb), RoundedCornerShape(11.dp))
+                                    .background(Color(category.colorArgb), RoundedCornerShape(8.dp))
                             )
                             Spacer(Modifier.width(12.dp))
                             Text(

@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -317,24 +318,31 @@ private fun ProductTile(
     val product = item.product
     val soldOut = blockOutOfStock && item.stockStatus == StockStatus.OUT_OF_STOCK
     val accent = item.categoryColor?.let { Color(it) } ?: MaterialTheme.colorScheme.primary
+    val inCart = inCartQty > 0
 
     Box(
         Modifier
             .fillMaxWidth()
             .background(
-                if (inCartQty > 0) MaterialTheme.colorScheme.primaryContainer
-                else MaterialTheme.colorScheme.surfaceContainerLow,
-                RoundedCornerShape(20.dp)
+                if (inCart) MaterialTheme.colorScheme.primaryContainer
+                else MaterialTheme.colorScheme.surfaceContainerLowest,
+                RoundedCornerShape(12.dp)
+            )
+            .border(
+                width = if (inCart) 1.5.dp else 1.dp,
+                color = if (inCart) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.outlineVariant,
+                shape = RoundedCornerShape(12.dp)
             )
             .clickable(enabled = !soldOut, onClick = onClick)
-            .padding(12.dp)
+            .padding(14.dp)
     ) {
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     Modifier
-                        .size(width = 26.dp, height = 5.dp)
-                        .background(accent, RoundedCornerShape(3.dp))
+                        .size(7.dp)
+                        .background(accent, RoundedCornerShape(50))
                 )
                 Spacer(Modifier.weight(1f))
                 if (promoLabel != null) {
@@ -353,18 +361,17 @@ private fun ProductTile(
                 overflow = TextOverflow.Ellipsis,
                 minLines = 2
             )
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(8.dp))
             Text(
                 Formatters.money(product.sellPrice, currencySymbol),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(10.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 StockPill(item)
                 Spacer(Modifier.weight(1f))
-                if (inCartQty > 0) {
+                if (inCart) {
                     Box(
                         Modifier
                             .size(24.dp)
@@ -424,36 +431,35 @@ private fun CartSummaryBar(
         Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .background(MaterialTheme.colorScheme.inverseSurface, RoundedCornerShape(22.dp))
+            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(16.dp))
             .clickable(onClick = onOpenCart)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 18.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             Icons.Filled.ShoppingCart,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.inverseOnSurface
+            tint = MaterialTheme.colorScheme.onPrimary
         )
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
             Text(
                 stringResource(R.string.cart_items, itemCount),
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.inverseOnSurface.copy(alpha = 0.75f)
+                color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
             )
             Text(
                 Formatters.money(total, currencySymbol),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.inverseOnSurface
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
         Button(
             onClick = onCharge,
-            shape = RoundedCornerShape(14.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                containerColor = MaterialTheme.colorScheme.onPrimary,
+                contentColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Text(stringResource(R.string.charge), fontWeight = FontWeight.Bold)

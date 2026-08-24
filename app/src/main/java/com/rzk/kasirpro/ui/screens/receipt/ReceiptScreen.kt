@@ -1,6 +1,7 @@
 package com.rzk.kasirpro.ui.screens.receipt
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,7 +64,7 @@ fun ReceiptScreen(
         Box(
             Modifier
                 .size(72.dp)
-                .background(MaterialTheme.kasirColors.cashInContainer, RoundedCornerShape(24.dp)),
+                .background(MaterialTheme.kasirColors.cashInContainer, RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -115,8 +116,9 @@ fun ReceiptScreen(
                     .fillMaxWidth()
                     .background(
                         MaterialTheme.colorScheme.surfaceContainerLowest,
-                        RoundedCornerShape(18.dp)
+                        RoundedCornerShape(16.dp)
                     )
+                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
                     .padding(18.dp)
             ) {
                 Text(
@@ -210,7 +212,7 @@ fun ReceiptScreen(
                         )
                     },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Icon(Icons.Filled.Share, contentDescription = null, Modifier.size(18.dp))
                     Spacer(Modifier.size(6.dp))
@@ -225,7 +227,7 @@ fun ReceiptScreen(
                         )
                     },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Icon(Icons.Filled.Print, contentDescription = null, Modifier.size(18.dp))
                     Spacer(Modifier.size(6.dp))
@@ -238,7 +240,7 @@ fun ReceiptScreen(
         Button(
             onClick = onDone,
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text(stringResource(R.string.new_sale), fontWeight = FontWeight.Bold)
         }

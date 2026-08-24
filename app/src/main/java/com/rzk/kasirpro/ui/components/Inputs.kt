@@ -71,7 +71,7 @@ fun MoneyField(
         isError = isError,
         supportingText = supportingText?.let { { Text(it) } },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(10.dp)
     )
 }
 
@@ -95,7 +95,7 @@ fun IntField(
         singleLine = true,
         enabled = enabled,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(10.dp)
     )
 }
 
@@ -124,7 +124,7 @@ fun KasirTextField(
         supportingText = supportingText?.let { { Text(it) } },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         trailingIcon = trailing,
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(10.dp)
     )
 }
 
@@ -150,7 +150,7 @@ fun SearchField(
         },
         modifier = modifier.fillMaxWidth(),
         singleLine = true,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(12.dp)
     )
 }
 
@@ -209,7 +209,7 @@ private fun KeypadKey(
             .height(54.dp)
             .background(
                 MaterialTheme.colorScheme.surfaceContainerHigh,
-                RoundedCornerShape(16.dp)
+                RoundedCornerShape(12.dp)
             )
             .then(
                 if (onLongClick != null) {
@@ -245,7 +245,7 @@ fun QuantityStepper(
             onClick = { onQuantityChange((quantity - 1).coerceAtLeast(minQuantity)) },
             enabled = quantity > minQuantity,
             modifier = Modifier.size(buttonSize),
-            shape = RoundedCornerShape(10.dp)
+            shape = RoundedCornerShape(8.dp)
         ) { Icon(Icons.Filled.Remove, contentDescription = "Decrease", Modifier.size(16.dp)) }
 
         Text(
@@ -261,7 +261,7 @@ fun QuantityStepper(
             onClick = { onQuantityChange((quantity + 1).coerceAtMost(maxQuantity)) },
             enabled = quantity < maxQuantity,
             modifier = Modifier.size(buttonSize),
-            shape = RoundedCornerShape(10.dp)
+            shape = RoundedCornerShape(8.dp)
         ) { Icon(Icons.Filled.Add, contentDescription = "Increase", Modifier.size(16.dp)) }
     }
 }
@@ -294,7 +294,7 @@ fun <T> ChipFilterRow(
                 leadingIcon = leadingIcon?.invoke(option)?.let { icon ->
                     { Icon(icon, contentDescription = null, Modifier.size(16.dp)) }
                 },
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(8.dp),
                 colors = FilterChipDefaults.filterChipColors(
                     selectedContainerColor = MaterialTheme.colorScheme.primary,
                     selectedLabelColor = MaterialTheme.colorScheme.onPrimary,

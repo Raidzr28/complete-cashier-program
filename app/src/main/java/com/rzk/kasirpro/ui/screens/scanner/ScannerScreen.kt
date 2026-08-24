@@ -214,7 +214,7 @@ fun ScannerScreen(
                     onClick = { if (manualCode.isNotBlank()) onBarcodeScanned(manualCode.trim()) },
                     enabled = manualCode.isNotBlank(),
                     modifier = Modifier.height(56.dp),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) { Text(stringResource(R.string.use_as_barcode)) }
             }
             Spacer(Modifier.height(8.dp))

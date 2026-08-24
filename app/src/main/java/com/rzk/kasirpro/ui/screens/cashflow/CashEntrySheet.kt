@@ -86,7 +86,7 @@ fun CashEntrySheet(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .background(container, RoundedCornerShape(22.dp))
+                    .background(container, RoundedCornerShape(16.dp))
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -125,7 +125,7 @@ fun CashEntrySheet(
                         selected = category == preset,
                         onClick = { category = preset },
                         label = { Text(preset) },
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(8.dp)
                     )
                 }
             }
@@ -158,7 +158,7 @@ fun CashEntrySheet(
                 onClick = { onSave(amount, category, note, affectsDrawer) },
                 enabled = amount > 0,
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text(stringResource(R.string.save), fontWeight = FontWeight.Bold)
             }

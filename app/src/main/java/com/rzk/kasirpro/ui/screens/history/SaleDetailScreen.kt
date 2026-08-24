@@ -267,7 +267,7 @@ fun SaleDetailScreen(
                 OutlinedButton(
                     onClick = { showVoidDialog = true },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Text(
                         stringResource(R.string.void_sale),

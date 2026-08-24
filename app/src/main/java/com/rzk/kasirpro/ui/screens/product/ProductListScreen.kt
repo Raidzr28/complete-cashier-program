@@ -253,7 +253,7 @@ private fun ProductRow(
             Box(
                 Modifier
                     .size(44.dp)
-                    .background(accent.copy(alpha = 0.16f), RoundedCornerShape(14.dp)),
+                    .background(accent.copy(alpha = 0.16f), RoundedCornerShape(10.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -316,7 +316,7 @@ private fun ProductRow(
                     Modifier
                         .background(
                             MaterialTheme.colorScheme.secondaryContainer,
-                            RoundedCornerShape(10.dp)
+                            RoundedCornerShape(8.dp)
                         )
                         .clickable(onClick = onStockAction)
                         .padding(horizontal = 10.dp, vertical = 6.dp)

@@ -194,12 +194,12 @@ fun PromoEditScreen(
                 OutlinedButton(
                     onClick = { datePickerFor = "start" },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) { Text(Formatters.date(form.startAt)) }
                 OutlinedButton(
                     onClick = { datePickerFor = "end" },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) { Text(Formatters.date(form.endAt)) }
             }
 
@@ -214,7 +214,7 @@ fun PromoEditScreen(
                         selected = isoDay in form.days,
                         onClick = { viewModel.toggleDay(isoDay) },
                         label = { Text(stringResource(labelRes)) },
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(8.dp)
                     )
                 }
             }
@@ -227,14 +227,14 @@ fun PromoEditScreen(
                 OutlinedButton(
                     onClick = { timePickerFor = "start" },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Text("${stringResource(R.string.start_time)} ${Formatters.minuteOfDay(form.startMinute)}")
                 }
                 OutlinedButton(
                     onClick = { timePickerFor = "end" },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Text("${stringResource(R.string.end_time)} ${Formatters.minuteOfDay(form.endMinute)}")
                 }
@@ -268,7 +268,7 @@ fun PromoEditScreen(
                 onClick = viewModel::save,
                 enabled = form.canSave,
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(10.dp)
             ) { Text(stringResource(R.string.save), fontWeight = FontWeight.Bold) }
         }
     }

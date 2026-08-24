@@ -265,13 +265,13 @@ fun SettingsScreen(
                     OutlinedButton(
                         onClick = viewModel::restoreSampleData,
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) { Text(stringResource(R.string.restore_sample)) }
                     Spacer(Modifier.height(8.dp))
                     OutlinedButton(
                         onClick = { showClearConfirm = true },
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) {
                         Text(
                             stringResource(R.string.clear_data),

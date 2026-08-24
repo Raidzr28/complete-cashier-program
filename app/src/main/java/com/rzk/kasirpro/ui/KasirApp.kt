@@ -4,8 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -92,28 +94,33 @@ private fun KasirBottomBar(
     currentRoute: String?,
     onSelect: (TopLevelDestination) -> Unit
 ) {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        tonalElevation = 0.dp
-    ) {
-        TopLevelDestination.entries.forEach { destination ->
-            val selected = currentRoute == destination.route
-            NavigationBarItem(
-                selected = selected,
-                onClick = { onSelect(destination) },
-                icon = {
-                    Icon(
-                        if (selected) destination.selectedIcon else destination.icon,
-                        contentDescription = null
+    Column {
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+        NavigationBar(
+            containerColor = MaterialTheme.colorScheme.background,
+            tonalElevation = 0.dp
+        ) {
+            TopLevelDestination.entries.forEach { destination ->
+                val selected = currentRoute == destination.route
+                NavigationBarItem(
+                    selected = selected,
+                    onClick = { onSelect(destination) },
+                    icon = {
+                        Icon(
+                            if (selected) destination.selectedIcon else destination.icon,
+                            contentDescription = null
+                        )
+                    },
+                    label = { Text(stringResource(destination.labelRes), maxLines = 1) },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                        selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                },
-                label = { Text(stringResource(destination.labelRes), maxLines = 1) },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                    selectedTextColor = MaterialTheme.colorScheme.onSurface
                 )
-            )
+            }
         }
     }
 }
@@ -210,6 +217,13 @@ private fun KasirNavHost(
                 onScanConsumed = { entry.clearScanResult() },
                 onOpenScanner = { navController.navigate(Routes.SCANNER) },
                 onBack = { navController.popBackStack() },
+                onGoToExistingProduct = { id ->
+                    // Replaces the abandoned "new product" form with the real one, so
+                    // back doesn't return to a half-filled duplicate.
+                    navController.navigate(Routes.productEdit(id)) {
+                        popUpTo(Routes.PRODUCT_EDIT) { inclusive = true }
+                    }
+                },
                 snackbarHostState = snackbarHostState
             )
         }

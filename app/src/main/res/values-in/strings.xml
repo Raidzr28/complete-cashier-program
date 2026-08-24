@@ -183,6 +183,10 @@
     <string name="show_archived">Tampilkan arsip</string>
     <string name="name_required">Nama wajib diisi</string>
     <string name="price_required">Harga jual harus lebih dari nol</string>
+    <string name="barcode_in_use_title">Barcode sudah dipakai</string>
+    <string name="barcode_in_use_message">%1$s sudah memakai barcode ini — stok %2$d %3$s.</string>
+    <string name="add_stock_to_existing">Tambah stok ke produk itu</string>
+    <string name="use_for_new_product">Tetap pakai untuk produk ini</string>
 
     <!-- ============================ Kategori ============================ -->
     <string name="categories_title">Kategori</string>
@@ -196,6 +200,7 @@
 
     <!-- ============================ Stok ============================ -->
     <string name="stock_title">Stok</string>
+    <string name="add_stock">Tambah stok</string>
     <string name="stock_in">Stok masuk</string>
     <string name="stock_in_hint">Catat barang yang diterima dari supplier</string>
     <string name="stock_adjust">Stok opname</string>

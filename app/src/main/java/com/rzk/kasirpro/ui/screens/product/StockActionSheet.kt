@@ -156,7 +156,7 @@ fun StockActionSheet(
                         },
                         enabled = receivedQty > 0,
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) { Text(stringResource(R.string.stock_in), fontWeight = FontWeight.Bold) }
                 }
 
@@ -196,7 +196,7 @@ fun StockActionSheet(
                         onClick = { onAdjust(countedStock, reason) },
                         enabled = delta != 0,
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) { Text(stringResource(R.string.save), fontWeight = FontWeight.Bold) }
                 }
 
@@ -230,7 +230,7 @@ fun StockActionSheet(
                         onClick = { onWriteOff(wasteQty, reason) },
                         enabled = wasteQty in 1..item.product.stock,
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) { Text(stringResource(R.string.write_off), fontWeight = FontWeight.Bold) }
                 }
             }

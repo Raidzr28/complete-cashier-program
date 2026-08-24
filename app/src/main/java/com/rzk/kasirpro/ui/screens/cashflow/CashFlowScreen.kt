@@ -1,6 +1,7 @@
 package com.rzk.kasirpro.ui.screens.cashflow
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -371,7 +372,8 @@ private fun CashEntryRow(
     Row(
         Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainerLow, RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest, RoundedCornerShape(16.dp))
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
             // Tap edits, long-press deletes — both refused for auto-posted rows.
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
             .padding(14.dp),
@@ -380,7 +382,7 @@ private fun CashEntryRow(
         Box(
             Modifier
                 .size(38.dp)
-                .background(container, RoundedCornerShape(12.dp)),
+                .background(container, RoundedCornerShape(10.dp)),
             contentAlignment = Alignment.Center
         ) {
             Icon(

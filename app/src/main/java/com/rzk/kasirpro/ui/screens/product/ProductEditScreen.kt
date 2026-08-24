@@ -16,10 +16,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -28,6 +30,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +41,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rzk.kasirpro.R
 import com.rzk.kasirpro.core.Formatters
+import com.rzk.kasirpro.data.local.entity.ProductEntity
+import com.rzk.kasirpro.data.model.ProductWithCategory
 import com.rzk.kasirpro.di.AppViewModelProvider
 import com.rzk.kasirpro.ui.components.ChipFilterRow
 import com.rzk.kasirpro.ui.components.DetailRow
@@ -53,12 +60,15 @@ fun ProductEditScreen(
     onScanConsumed: () -> Unit,
     onOpenScanner: () -> Unit,
     onBack: () -> Unit,
+    onGoToExistingProduct: (Long) -> Unit,
     snackbarHostState: SnackbarHostState,
     viewModel: ProductEditViewModel = viewModel(factory = AppViewModelProvider)
 ) {
     val form by viewModel.form.collectAsStateWithLifecycle()
     val support by viewModel.support.collectAsStateWithLifecycle()
     val symbol = support.settings.currencySymbol
+    var showStockSheet by remember { mutableStateOf(false) }
+    var duplicateBarcodeProduct by remember { mutableStateOf<ProductEntity?>(null) }
 
     LaunchedEffect(scannedBarcode) {
         val code = scannedBarcode
@@ -69,6 +79,7 @@ fun ProductEditScreen(
     }
 
     val savedMessage = stringResource(R.string.product_saved)
+    val stockUpdatedMessage = stringResource(R.string.stock_updated)
     LaunchedEffect(Unit) {
         viewModel.eventFlow.collect { event ->
             when (event) {
@@ -76,6 +87,11 @@ fun ProductEditScreen(
                     snackbarHostState.showSnackbar(savedMessage)
                     onBack()
                 }
+                ProductEditEvent.StockUpdated -> {
+                    showStockSheet = false
+                    snackbarHostState.showSnackbar(stockUpdatedMessage)
+                }
+                is ProductEditEvent.ExistingProduct -> duplicateBarcodeProduct = event.product
                 is ProductEditEvent.Error -> snackbarHostState.showSnackbar(event.message)
             }
         }
@@ -219,6 +235,13 @@ fun ProductEditScreen(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                if (!form.isNew) {
+                    OutlinedButton(
+                        onClick = { showStockSheet = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp)
+                    ) { Text(stringResource(R.string.add_stock)) }
+                }
             }
 
             KasirTextField(
@@ -239,7 +262,7 @@ fun ProductEditScreen(
                 onClick = viewModel::save,
                 enabled = form.canSave,
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text(stringResource(R.string.save), fontWeight = FontWeight.Bold)
             }
@@ -256,5 +279,55 @@ fun ProductEditScreen(
                 }
             }
         }
+    }
+
+    if (showStockSheet && !form.isNew) {
+        StockActionSheet(
+            item = ProductWithCategory(
+                product = ProductEntity(
+                    id = form.id,
+                    name = form.name,
+                    costPrice = form.costPrice,
+                    stock = form.stock,
+                    unit = form.unit.ifBlank { "pcs" },
+                    trackStock = form.trackStock
+                ),
+                categoryName = null,
+                categoryColor = null
+            ),
+            currencySymbol = symbol,
+            onDismiss = { showStockSheet = false },
+            onStockIn = viewModel::stockIn,
+            onAdjust = viewModel::adjustStock,
+            onWriteOff = viewModel::writeOffStock
+        )
+    }
+
+    duplicateBarcodeProduct?.let { existing ->
+        AlertDialog(
+            onDismissRequest = { duplicateBarcodeProduct = null },
+            title = { Text(stringResource(R.string.barcode_in_use_title)) },
+            text = {
+                Text(
+                    stringResource(
+                        R.string.barcode_in_use_message,
+                        existing.name,
+                        existing.stock,
+                        existing.unit
+                    )
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    duplicateBarcodeProduct = null
+                    onGoToExistingProduct(existing.id)
+                }) { Text(stringResource(R.string.add_stock_to_existing)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { duplicateBarcodeProduct = null }) {
+                    Text(stringResource(R.string.use_for_new_product))
+                }
+            }
+        )
     }
 }

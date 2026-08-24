@@ -1,6 +1,7 @@
 package com.rzk.kasirpro.ui.screens.stock
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -123,14 +124,15 @@ private fun MovementRow(movement: StockMovementEntity, currencySymbol: String) {
     Row(
         Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainerLow, RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest, RoundedCornerShape(16.dp))
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
             .padding(14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             Modifier
                 .size(38.dp)
-                .background(accent.copy(alpha = 0.15f), RoundedCornerShape(12.dp)),
+                .background(accent.copy(alpha = 0.15f), RoundedCornerShape(10.dp)),
             contentAlignment = Alignment.Center
         ) {
             Icon(

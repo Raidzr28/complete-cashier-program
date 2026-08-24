@@ -59,7 +59,7 @@ fun StatCard(
                 Box(
                     Modifier
                         .size(32.dp)
-                        .background(accent.copy(alpha = 0.14f), RoundedCornerShape(10.dp)),
+                        .background(accent.copy(alpha = 0.14f), RoundedCornerShape(8.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(icon, contentDescription = null, tint = accent, modifier = Modifier.size(18.dp))
@@ -149,7 +149,7 @@ fun HeroBalanceCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(containerColor, RoundedCornerShape(26.dp))
+            .background(containerColor, RoundedCornerShape(18.dp))
             .padding(20.dp)
     ) {
         Column {

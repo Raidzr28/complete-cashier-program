@@ -1,5 +1,6 @@
 package com.rzk.kasirpro.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Arrangement
@@ -65,23 +66,34 @@ fun SectionHeader(
     }
 }
 
-/** Rounded tonal surface that every card in the app is built from. */
+/**
+ * Flat surface with a hairline edge — every card in the app is built from this. A
+ * minimalist shop shelf gets its definition from a thin line, not a drop shadow.
+ */
 @Composable
 fun KasirCard(
     modifier: Modifier = Modifier,
     containerColor: Color = MaterialTheme.colorScheme.surfaceContainerLow,
     contentPadding: PaddingValues = PaddingValues(16.dp),
+    bordered: Boolean = true,
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val colors = CardDefaults.cardColors(containerColor = containerColor)
-    val shape = RoundedCornerShape(20.dp)
+    val shape = RoundedCornerShape(16.dp)
+    val elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    val border = if (bordered) {
+        BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+    } else null
     if (onClick != null) {
-        Card(onClick = onClick, modifier = modifier, shape = shape, colors = colors) {
+        Card(
+            onClick = onClick, modifier = modifier, shape = shape, colors = colors,
+            elevation = elevation, border = border
+        ) {
             Column(Modifier.padding(contentPadding), content = content)
         }
     } else {
-        Card(modifier = modifier, shape = shape, colors = colors) {
+        Card(modifier = modifier, shape = shape, colors = colors, elevation = elevation, border = border) {
             Column(Modifier.padding(contentPadding), content = content)
         }
     }
@@ -107,7 +119,7 @@ fun EmptyState(
         Box(
             Modifier
                 .size(72.dp)
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh, RoundedCornerShape(24.dp)),
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh, RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -224,6 +236,6 @@ fun ConfirmDialog(
             }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text(dismissLabel) } },
-        shape = RoundedCornerShape(28.dp)
+        shape = RoundedCornerShape(20.dp)
     )
 }

@@ -1,6 +1,7 @@
 package com.rzk.kasirpro.ui.screens.history
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -143,7 +144,8 @@ private fun SaleRow(sale: SaleWithDetails, currencySymbol: String, onClick: () -
     Row(
         Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainerLow, RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest, RoundedCornerShape(16.dp))
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
             .clickable(onClick = onClick)
             .padding(14.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -153,7 +155,7 @@ private fun SaleRow(sale: SaleWithDetails, currencySymbol: String, onClick: () -
                 .size(40.dp)
                 .background(
                     MaterialTheme.colorScheme.surfaceContainerHigh,
-                    RoundedCornerShape(13.dp)
+                    RoundedCornerShape(10.dp)
                 ),
             contentAlignment = Alignment.Center
         ) {

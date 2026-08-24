@@ -14,15 +14,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 /**
- * Generously rounded — large radii are what make a dense grid of tappable tiles read as
- * soft cards rather than a spreadsheet.
+ * Restrained radii — a minimalist storefront reads as considered through sharp corners
+ * and hairline edges, not through soft bubble shapes. Kept just enough curve to stay
+ * touchable rather than clinical.
  */
 val KasirShapes = Shapes(
-    extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-    small = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-    medium = androidx.compose.foundation.shape.RoundedCornerShape(18.dp),
-    large = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-    extraLarge = androidx.compose.foundation.shape.RoundedCornerShape(32.dp)
+    extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
+    small = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+    medium = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+    large = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+    extraLarge = androidx.compose.foundation.shape.RoundedCornerShape(20.dp)
 )
 
 private val LocalKasirColors = staticCompositionLocalOf { LightSemanticColors }

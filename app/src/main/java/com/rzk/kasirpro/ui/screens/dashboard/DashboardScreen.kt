@@ -259,7 +259,7 @@ private fun QuickActionRow(onNavigate: (String) -> Unit) {
                         .size(56.dp)
                         .background(
                             MaterialTheme.colorScheme.secondaryContainer,
-                            RoundedCornerShape(18.dp)
+                            RoundedCornerShape(12.dp)
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -318,7 +318,7 @@ private fun AlertCard(
     Row(
         Modifier
             .fillMaxWidth()
-            .background(container, RoundedCornerShape(20.dp))
+            .background(container, RoundedCornerShape(16.dp))
             .clickable(onClick = onClick)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -350,7 +350,7 @@ private fun RecentSaleRow(sale: SaleWithDetails, symbol: String, onClick: () -> 
                     .size(40.dp)
                     .background(
                         MaterialTheme.colorScheme.primaryContainer,
-                        RoundedCornerShape(13.dp)
+                        RoundedCornerShape(10.dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {

@@ -136,7 +136,7 @@ fun ShiftScreen(
                     Button(
                         onClick = { showClose = true },
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) {
                         Text(stringResource(R.string.close_shift), fontWeight = FontWeight.Bold)
                     }
@@ -212,7 +212,7 @@ private fun OpenShiftCard(
         Button(
             onClick = { onOpen(cashier, openingCash) },
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text(stringResource(R.string.open_shift), fontWeight = FontWeight.Bold)
         }

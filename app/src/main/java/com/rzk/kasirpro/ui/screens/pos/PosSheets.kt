@@ -162,12 +162,12 @@ fun CartSheet(
                 OutlinedButton(
                     onClick = { showHoldDialog = true },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) { Text(stringResource(R.string.hold_order)) }
                 Button(
                     onClick = onCharge,
                     modifier = Modifier.weight(2f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Text(
                         stringResource(
@@ -407,7 +407,7 @@ fun PaymentSheet(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(20.dp))
+                    .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(16.dp))
                     .padding(16.dp)
             ) {
                 Column {
@@ -554,7 +554,7 @@ fun PaymentSheet(
                     },
                     enabled = amount > 0 && paid < totals.total,
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) { Text(stringResource(R.string.add_tender)) }
 
                 Button(
@@ -565,7 +565,7 @@ fun PaymentSheet(
                     },
                     enabled = canConfirm,
                     modifier = Modifier.weight(2f),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     if (isProcessing) {
                         CircularProgressIndicator(
@@ -594,7 +594,7 @@ private fun MethodChip(
             .background(
                 if (selected) MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.surfaceContainerHigh,
-                RoundedCornerShape(12.dp)
+                RoundedCornerShape(8.dp)
             )
             .clickable(onClick = onClick)
             .padding(vertical = 10.dp),
@@ -663,7 +663,7 @@ fun HeldOrdersSheet(
                             }
                             Button(
                                 onClick = { onResume(held) },
-                                shape = RoundedCornerShape(12.dp)
+                                shape = RoundedCornerShape(10.dp)
                             ) { Text(stringResource(R.string.resume_order)) }
                         }
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
